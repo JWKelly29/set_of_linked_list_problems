@@ -47,6 +47,27 @@ class DoubleList(object):
  
             current_node = current_node.next
         print "*"*50
+
+    def remove_duplicates(self):
+		current_node = self.head
+		traversed = {}
+		while current_node is not None:
+			if traversed.get(str(current_node.data), None) == None:
+				traversed[str(current_node.data)] = current_node.data
+			else:
+				if current_node.prev == None:
+					(current_node.next).prev = None
+				elif current_node.next == None:
+					(current_node.prev).next = None
+				else:
+					(current_node.prev).next = current_node.next
+					(current_node.next).prev = current_node.prev
+
+
+			current_node = current_node.next
+			print traversed
+
+
  
  
 d = DoubleList()
@@ -55,11 +76,11 @@ d.append(5)
 d.append(6)
 d.append(50)
 d.append(30)
- 
-d.show()
- 
-d.remove(50)
-d.remove(5)
+d.append(99)
+d.append(101010)
+d.append(23)
+d.append(23)
+d.append(5)
  
 d.show()
 
@@ -68,6 +89,9 @@ d.show()
 
 #### Remove duplicates
 
+d.remove_duplicates()
+
+d.show()
 
 
 
