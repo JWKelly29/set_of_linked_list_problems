@@ -1,30 +1,94 @@
-class Node:
-    def __init__(self, cargo=None, next=None):
-        self.cargo = cargo
-        self.next  = next
+class Node(object):
+ 
+    def __init__(self, data, prev, next):
+        self.data = data
+        self.prev = prev
+        self.next = next
+ 
+ 
+class DoubleList(object):
+ 
+    head = None
+    tail = None
+ 
+    def append(self, data):
+        new_node = Node(data, None, None)
+        if self.head is None:
+            self.head = self.tail = new_node
+        else:
+            new_node.prev = self.tail
+            new_node.next = None
+            self.tail.next = new_node
+            self.tail = new_node
+ 
+    def remove(self, node_value):
+        current_node = self.head
+ 
+        while current_node is not None:
+            if current_node.data == node_value:
+                # if it's not the first element
+                if current_node.prev is not None:
+                    current_node.prev.next = current_node.next
+                    current_node.next.prev = current_node.prev
+                else:
+                    # otherwise we have no prev (it's None), head is the next one, and prev becomes None
+                    self.head = current_node.next
+                    current_node.next.prev = None
+ 
+            current_node = current_node.next
+ 
+    def show(self):
+        print "Show list data:"
+        current_node = self.head
+        while current_node is not None:
+            print current_node.prev.data if hasattr(current_node.prev, "data") else None,
+            print current_node.data,
+            print current_node.next.data if hasattr(current_node.next, "data") else None
+ 
+            current_node = current_node.next
+        print "*"*50
+ 
+ 
+d = DoubleList()
+ 
+d.append(5)
+d.append(6)
+d.append(50)
+d.append(30)
+ 
+d.show()
+ 
+d.remove(50)
+d.remove(5)
+ 
+d.show()
 
-    def __str__(self):
-        return str(self.cargo)
 
-    def print_backward(self):
-	    if self.next != None:
-	        tail = self.next
-	        tail.print_backward()
-	    print self.cargo,
+# Questions
 
-class LinkedList:
-    def __init__(self):
-        self.length = 0
-        self.head   = None
+#### Remove duplicates
 
-	def print_list_backward(self):
-		print "[",
-		if self.head != None:
-		    self.head.print_backward()
-		print "]",
 
-	def addFirst(self, cargo):
-        node = Node(cargo)
-        node.next = self.head
-        self.head = node
-        self.length = self.length + 1
+
+
+
+
+#### Return kth to last node
+
+
+#### Delete the moddle node
+
+
+#### Partition list so that all nodes less than x come before and all node greater come after
+
+
+#### create a method that takes two linked lists and returns the number created by joining the numbers in the nodes together in reverse order
+
+
+#### check if list is a palindrome (same backwards as forwards)
+
+
+#### determine if two linked lists are intersecting (not by value... the exact same node)
+
+
+#### loop detection
