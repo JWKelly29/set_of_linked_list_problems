@@ -8,8 +8,10 @@ class Node(object):
  
 class DoubleList(object):
  
-    head = None
-    tail = None
+    def __init__(self):
+    	self.head = None
+    	self.tail = None
+    	self.length = 0
  
     def append(self, data):
         new_node = Node(data, None, None)
@@ -20,6 +22,7 @@ class DoubleList(object):
             new_node.next = None
             self.tail.next = new_node
             self.tail = new_node
+        self.length += 1
  
     def remove(self, node_value):
         current_node = self.head
@@ -48,6 +51,12 @@ class DoubleList(object):
             current_node = current_node.next
         print "*"*50
 
+        current_node = self.head
+        while current_node is not None:
+        	print current_node.data
+        	current_node = current_node.next
+        print "*"*50
+
     def remove_duplicates(self):
 		current_node = self.head
 		traversed = {}
@@ -62,10 +71,49 @@ class DoubleList(object):
 				else:
 					(current_node.prev).next = current_node.next
 					(current_node.next).prev = current_node.prev
+				self.length -= 1
 
 
 			current_node = current_node.next
-			print traversed
+
+    def remove_k_from_end(self, k):
+		current_node = self.tail
+		print("tail", current_node)
+		index = 0
+		while index != self.length:
+			if index == k:
+				self.show()
+				if current_node.prev == None:
+					(current_node.next).prev = None
+				elif current_node.next == None:
+					(current_node.prev).next = None
+				else:
+					(current_node.prev).next = current_node.next
+					(current_node.next).prev = current_node.prev
+				self.length -= 1
+				self.show()
+				break
+			else:
+				print current_node.prev
+				current_node = current_node.prev
+				index += 1
+
+    def remove_middle_node(self):
+		current_node = self.head
+		index = 0
+		print("length", self.length)
+		while index != ((self.length + 1) / 2):
+			current_node = current_node.next
+			index += 1
+		if current_node.prev == None:
+					(current_node.next).prev = None
+		if current_node.next == None:
+			(current_node.prev).next = None
+		if current_node.next != None and current_node.prev != None:
+			(current_node.prev).next = current_node.next
+			(current_node.next).prev = current_node.prev
+		self.length -= 1
+		
 
 
  
@@ -84,6 +132,7 @@ d.append(5)
  
 d.show()
 
+print("***** made list ******")
 
 # Questions
 
@@ -94,15 +143,23 @@ d.remove_duplicates()
 d.show()
 
 
+print("***** remove duplicates ******")
 
 
+#### Delete kth to last node
 
-#### Return kth to last node
+d.remove_k_from_end(6)
 
+d.show()
 
-#### Delete the moddle node
+print("***** delete kth node ******")
+#### Delete the middle node
 
+d.remove_middle_node()
 
+d.show()
+
+print("***** delete middle node ******")
 #### Partition list so that all nodes less than x come before and all node greater come after
 
 
