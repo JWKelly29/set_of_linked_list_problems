@@ -321,7 +321,4 @@ palin.is_palin()
 not_palin.is_palin()
 
 print("***** check if list is a palindrome ******")
-#### determine if two linked lists are intersecting (not by value... the exact same node)
-
-
-#### loop detection
+#### determine if two linked lists are intersecting
