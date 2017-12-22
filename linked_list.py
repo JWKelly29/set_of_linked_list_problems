@@ -101,19 +101,102 @@ class DoubleList(object):
     def remove_middle_node(self):
 		current_node = self.head
 		index = 0
-		print("length", self.length)
 		while index != ((self.length + 1) / 2):
 			current_node = current_node.next
 			index += 1
 		if current_node.prev == None:
-					(current_node.next).prev = None
+			(current_node.next).prev = None
 		if current_node.next == None:
 			(current_node.prev).next = None
 		if current_node.next != None and current_node.prev != None:
 			(current_node.prev).next = current_node.next
 			(current_node.next).prev = current_node.prev
 		self.length -= 1
-		
+
+    def partition_list(self, value):
+		current_node = self.head
+		before_start = None
+		before_end = None
+		middle_start = None
+		middle_end = None
+		after_start = None
+		after_end = None
+		index = 0
+		current_node = self.head
+
+		while index < self.length:
+			next_node = current_node.next
+			if current_node.data < value:
+				if before_start == None and before_end == None:
+					before_start = current_node
+					before_start.prev = None
+					before_start.next = None
+					before_end   = current_node
+					before_end.prev = None
+					before_end.next = None
+				else:
+					current_node.prev = before_end
+					current_node.next = None
+					before_end.next = current_node
+					before_end = current_node
+			elif current_node.data > value:
+				if after_start == None and after_end == None:
+					after_start = current_node
+					after_start.prev = None
+					after_start.next = None
+					after_end   = current_node
+					after_end.prev = None
+					after_end.next = None
+				else:
+					current_node.prev = after_end
+					current_node.next = None
+					after_end.next = current_node
+					after_end = current_node
+			else:
+				if middle_start == None and middle_end == None:
+					middle_start = current_node
+					middle_start.prev = None
+					middle_start.next = None
+					middle_end   = current_node
+					middle_end.prev = None
+					middle_end.next = None
+				else:
+					current_node.prev = middle_end
+					current_node.next = None
+					middle_end.next = current_node
+					middle_end = current_node
+			current_node = next_node
+			index += 1
+
+		if before_end != None and middle_end != None and after_end != None:
+			before_end.next = middle_start
+			middle_start.prev = before_end
+			middle_end.next = after_start
+			after_start.prev = middle_end
+			self.head = before_start
+			self.tail = after_end
+		if before_end == None and middle_end != None and after_end != None:
+			middle_end.next = after_start
+			after_start.prev = middle_end
+			self.head = middle_start
+			self.tail = after_end
+		if before_end != None and middle_end != None and after_end == None:
+			before_end.next = middle_start
+			middle_start.prev = before_end
+			self.head = before_start
+			self.tail = middle_end
+		if before_end != None and middle_end == None and after_end != None:
+			before_end.next = after_start
+			after_start.prev = before_end
+			self.head = before_start
+			self.tail = after_end
+
+
+
+
+
+
+
 
 
  
@@ -136,33 +219,37 @@ print("***** made list ******")
 
 # Questions
 
-#### Remove duplicates
+# #### Remove duplicates
 
-d.remove_duplicates()
+# d.remove_duplicates()
 
-d.show()
-
-
-print("***** remove duplicates ******")
+# d.show()
 
 
-#### Delete kth to last node
+# print("***** remove duplicates ******")
 
-d.remove_k_from_end(6)
 
-d.show()
+# #### Delete kth to last node
 
-print("***** delete kth node ******")
-#### Delete the middle node
+# d.remove_k_from_end(6)
 
-d.remove_middle_node()
+# d.show()
 
-d.show()
+# print("***** delete kth node ******")
+# #### Delete the middle node
+
+# d.remove_middle_node()
+
+# d.show()
 
 print("***** delete middle node ******")
 #### Partition list so that all nodes less than x come before and all node greater come after
 
+d.partition_list(18)
 
+d.show()
+
+print("***** Partitioned list ******")
 #### create a method that takes two linked lists and returns the number created by joining the numbers in the nodes together in reverse order
 
 
