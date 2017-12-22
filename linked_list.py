@@ -191,6 +191,24 @@ class DoubleList(object):
 			self.head = before_start
 			self.tail = after_end
 
+    def is_palin(self):
+		# iterate through list from front and back. If node is the same all the way through return true else false
+		head_to_tail = self.head
+		tail_to_head = self.tail
+		i = 0
+		while i < self.length:
+			if head_to_tail.data != tail_to_head.data:
+				print "false"
+				return False
+			else:
+				head_to_tail = head_to_tail.next
+				tail_to_head = tail_to_head.prev
+				i += 1
+			if i == self.length - 1:
+				print "true"
+				return True
+
+
 
 def join_two_numerical_lists(list1,list2):
 	list_str_1 = ""
@@ -288,7 +306,21 @@ join_two_numerical_lists(dd,ddd)
 print("***** add number created by joining two linked lists ******")
 #### check if list is a palindrome (same backwards as forwards)
 
+palin = DoubleList()
+palin.append(1)
+palin.append(0)
+palin.append(1)
 
+not_palin = DoubleList()
+not_palin.append(1)
+not_palin.append(1)
+not_palin.append(0)
+
+palin.is_palin()
+
+not_palin.is_palin()
+
+print("***** check if list is a palindrome ******")
 #### determine if two linked lists are intersecting (not by value... the exact same node)
 
 
