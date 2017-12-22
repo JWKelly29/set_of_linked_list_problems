@@ -192,6 +192,25 @@ class DoubleList(object):
 			self.tail = after_end
 
 
+def join_two_numerical_lists(list1,list2):
+	list_str_1 = ""
+	list_str_2 = ""
+	i = 0
+	current_node = list1.tail
+	while i < list1.length:
+		list_str_1 += str(current_node.data)
+		current_node = current_node.prev
+		i += 1
+	i = 0
+	current_node = list2.tail
+	while i < list2.length:
+		list_str_2 += str(current_node.data)
+		current_node = current_node.prev
+		i += 1
+	print(int(list_str_1) + int(list_str_2))
+	return int(list_str_1) + int(list_str_2)
+
+
 
 
 
@@ -219,40 +238,54 @@ print("***** made list ******")
 
 # Questions
 
-# #### Remove duplicates
+#### Remove duplicates
 
-# d.remove_duplicates()
+d.remove_duplicates()
 
-# d.show()
-
-
-# print("***** remove duplicates ******")
+d.show()
 
 
-# #### Delete kth to last node
+print("***** remove duplicates ******")
 
-# d.remove_k_from_end(6)
 
-# d.show()
+#### Delete kth to last node
 
-# print("***** delete kth node ******")
-# #### Delete the middle node
+d.remove_k_from_end(6)
 
-# d.remove_middle_node()
+d.show()
 
-# d.show()
+print("***** delete kth node ******")
+#### Delete the middle node
+
+d.remove_middle_node()
+
+d.show()
 
 print("***** delete middle node ******")
 #### Partition list so that all nodes less than x come before and all node greater come after
 
-d.partition_list(18)
+d.partition_list(30)
 
 d.show()
 
 print("***** Partitioned list ******")
 #### create a method that takes two linked lists and returns the number created by joining the numbers in the nodes together in reverse order
 
+dd = DoubleList()
+dd.append(1)
+dd.append(2)
+dd.append(3)
 
+ddd = DoubleList()
+ddd.append(4)
+ddd.append(5)
+ddd.append(6)
+
+join_two_numerical_lists(dd,ddd)
+
+
+
+print("***** add number created by joining two linked lists ******")
 #### check if list is a palindrome (same backwards as forwards)
 
 
